@@ -47,7 +47,7 @@ tfoot td {
   font-weight: bold;
 }
 
-section {
+nav {
   max-width: 600px;
   display: flex;
   flex-wrap: wrap;

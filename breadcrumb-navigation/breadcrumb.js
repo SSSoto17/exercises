@@ -1,4 +1,4 @@
-import { $, $$ } from "./utils/dom.js";
+import { $, $$ } from "../utils/dom.js";
 
 const bc = [
   { name: "Hvidevarer", link: "/hvidevarer" },
@@ -7,6 +7,7 @@ const bc = [
 ];
 
 function showBreadcrumb(arr) {
+  $("nav").innerHTML = "";
   arr.forEach((each) => {
     $("nav").innerHTML += `
     ${

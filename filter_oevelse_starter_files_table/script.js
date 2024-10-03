@@ -27,38 +27,29 @@ const vehicles = [
   { type: "Knallert", fuel: "Benzin", passengers: 1, ownedBy: "Jonas" },
   { type: "Løbehjul", passengers: 1, isElectric: true },
 ];
+
 const tbodyPointer = document.querySelector("tbody");
+const filters = {
+  all: vehicles,
+  isElectric: vehicles.filter((vehicle) => vehicle.isElectric),
+  seatsAboveTwo: vehicles.filter((vehicle) => vehicle.passengers > 2),
+  ownedByJonas: vehicles.filter(
+    (vehicle) => vehicle.isElectric && vehicle.ownedBy == "Jonas"
+  ),
+  fueledByRye: vehicles.filter(
+    (vehicle) => vehicle.fuel == "Rugbrød" && vehicle.passengers > 1
+  ),
+};
 
-function isVehicleElectric(vehicle) {
-  if (vehicle.isElectric) {
-    return true;
-  }
-}
-function vehicleSeats(vehicle) {
-  if (vehicle.passengers > 2) {
-    return true;
-  }
-}
-function vehicleOwnedBy(vehicle) {
-  if ((vehicle.ownedBy === "Jonas") & vehicle.isElectric) {
-    return true;
-  }
-}
-function vehicleFueledBy(vehicle) {
-  if ((vehicle.fuel === "Rugbrød") & (vehicle.passengers > 1)) {
-    return true;
-  }
-}
-
-const allElectricVehicles = vehicles.filter(isVehicleElectric);
-const seatsAboveTwo = vehicles.filter(vehicleSeats);
-const ownedByJonas = vehicles.filter(vehicleOwnedBy);
-const fueledByRye = vehicles.filter(vehicleFueledBy);
+document.querySelector("nav").addEventListener("click", (e) => {
+  const filterName = e.target.dataset.filter;
+  tbodyPointer.innerHTML = "";
+  showTheseVehicles(filters[filterName]);
+});
 
 showTheseVehicles(vehicles);
 
 function showTheseVehicles(arr) {
-  tbodyPointer.innerHTML = "";
   arr.forEach((each) => {
     tbodyPointer.innerHTML += `<tr>
   <td>${ifUndefined(each.type)}</td>
@@ -79,26 +70,3 @@ function ifUndefined(item) {
     return "";
   }
 }
-
-const btnAll = document.getElementById("all-vehicles");
-const btnElectric = document.getElementById("is-electric");
-const btnSeats = document.getElementById("above-two-seats");
-const btnJonas = document.getElementById("owned-by-Jonas");
-const btnFuel = document.getElementById("fueled-by-rye");
-
-btnAll.addEventListener("click", () => {
-  showTheseVehicles(vehicles);
-});
-
-btnElectric.addEventListener("click", () => {
-  showTheseVehicles(allElectricVehicles);
-});
-btnSeats.addEventListener("click", () => {
-  showTheseVehicles(seatsAboveTwo);
-});
-btnJonas.addEventListener("click", () => {
-  showTheseVehicles(ownedByJonas);
-});
-btnFuel.addEventListener("click", () => {
-  showTheseVehicles(fueledByRye);
-});
