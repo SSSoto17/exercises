@@ -26,6 +26,6 @@ function switchLang(locale) {
   });
 }
 
-selector.addEventListener("click", (e) => {
+selector.addEventListener("change", (e) => {
   switchLang(e.target.value);
 });
